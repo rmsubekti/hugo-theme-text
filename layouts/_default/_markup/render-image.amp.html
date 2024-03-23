@@ -1,0 +1,31 @@
+{{ $image := newScratch }}
+{{- if strings.HasPrefix .Destination "http" }}
+{{- $image.Set "data" (resources.GetRemote .Destination) -}}
+{{- else -}}
+{{- $image.Set "data" (.Page.Resources.GetMatch .Destination) -}}
+{{- end -}}
+{{- $img:= ($image.Get "data") -}}
+{{ if (eq (printf "%s" $img.MediaType) "image/svg+xml") }}
+    <amp-img
+        alt="{{ .Text }}" 
+        src="{{ .Destination | safeURL }}" 
+        layout="responsive">
+    </amp-img>
+{{- else -}}
+    {{- $w:=(slice 903 885 590 295 148 ) -}}
+    <amp-img
+        alt="{{ .Text }}" 
+        src="{{ .Destination | safeURL }}" 
+        width="{{ $img.Width }}" 
+        height="{{ $img.Height }}"
+        srcset="
+            {{- range $w -}}
+                {{- if gt $img.Width . -}}
+                    {{- $i:= ($img.Resize (printf "%dx" . ) ) -}}
+                    {{- printf "%s %dw" $i.Permalink . -}}
+                {{- end -}}
+                {{- if ne 148 . -}}, {{- end -}}
+            {{- end -}}"
+        layout="responsive">
+</amp-img>
+{{- end -}}

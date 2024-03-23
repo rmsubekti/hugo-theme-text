@@ -1,0 +1,57 @@
+@mixin light-mode() {
+  --body-bg: #FCFDFF;
+  --text-color: #000;
+  --secondary-text-color: #2b3652;
+  --link-color: #000;
+  --link-hover-bg: #f1f1fc;
+  --header-bg: #fcfcfc;
+  --shadow-color: #00636e30;
+  --widget-bg: #fbfbfb;
+  --border-color: #d7eaff;
+  --syntax-color:#2f1e2e;
+  --syntax-bg:#e7e9db;
+  --syntax-hl-bg: #bec1b1;
+  --svg-bg:#fff0;
+  --img-filter: brightness(1);
+}
+
+@mixin dark-mode() {
+  --body-bg: #06090b;
+  --text-color: #fff;
+  --secondary-text-color: #828282;
+  --link-color: #fff;
+  --link-hover-bg: #131c1c;
+  --header-bg: #050507;
+  --shadow-color: #00636e14;
+  --widget-bg: #0e1111;
+  --border-color: #262d2f;
+  --syntax-color:#e7e9db;
+  --syntax-bg:#2f1e2e;
+  --syntax-hl-bg: #4c344b;
+  --svg-bg:#fff;
+  --img-filter: brightness(.8) contrast(.9) sepia(.2);
+}
+
+:root {
+  color-scheme: light dark;
+  /* both supported */
+  @include light-mode();
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light dark;
+    /* both supported */
+    @include dark-mode();
+  }
+
+  .light{
+    @include light-mode();
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .dark {
+    @include dark-mode();
+  }
+}

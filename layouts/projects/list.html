@@ -1,0 +1,40 @@
+{{- define "main" -}}
+
+{{ .Content }}
+
+<section class="item-list">
+    {{ if (eq .Title "Projects") }}
+
+    {{ range .Sections.ByTitle }}
+    <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+    {{ range first 5 (union .Sections .Pages)}}
+    <div class="item">
+        <a class="item-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <time>{{ .Date.Format "02/01/2006" }}</time>
+    </div>
+    {{end}}
+    {{ end }}
+
+    {{ else }}
+
+    <h3>{{ .Title }}</h3>
+    {{- range (.Paginator 30).Pages.ByDate.Reverse -}}
+    <div class="item">
+        <a class="item-link" href="{{ .Permalink }}">{{ .Title }}</a>
+        <time>{{ .Date.Format "02/01/2006" }}</time>
+    </div>
+    {{- end -}}
+    {{- with .Paginator -}}
+    <div class="pagination">
+        <div class="next"> {{- if .HasNext -}}<a href="{{.Next.URL}}">← Next</a>{{- end -}} </div>
+        <div class="prev"> {{- if .HasPrev -}}<a href="{{.Prev.URL}}">Previous →</a>{{- end -}} </div>
+    </div>
+    {{- end -}}
+
+    {{ end }}
+
+
+
+
+</section>
+{{- end -}}

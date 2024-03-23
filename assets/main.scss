@@ -1,0 +1,46 @@
+@charset "utf-8";
+// Define defaults for each variable.
+
+$base-font-family: "Courier New" !default;
+$mono-font-family: Menlo, Monaco, "Courier New", monospace !important;
+$base-font-size: 1rem !default;
+$base-font-weight: 400 !default;
+$small-font-size: $base-font-size * 0.875 !default;
+$base-line-height: 1.5 !default;
+
+$spacing-unit: 30px !default;
+
+$table-text-align: left !default;
+
+// Width of the content area
+$content-width: 850px !default;
+
+$on-palm: 600px !default;
+$on-laptop: 900px !default;
+$on-wide: 1140px !default;
+
+// Use media queries like this:
+// @include media-query($on-palm) {
+//   .wrapper {
+//     padding-right: $spacing-unit / 2;
+//     padding-left: $spacing-unit / 2;
+//   }
+// }
+// Notice the following mixin uses max-width, in a deprecated, desktop-first
+// approach, whereas media queries used elsewhere now use min-width.
+@mixin media-query($device) {
+    @media screen and (min-width: $device) {
+        @content;
+    }
+}
+
+@mixin relative-font-size($ratio) {
+    font-size: $base-font-size * $ratio;
+}
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+@import "_scss/normalize",
+"_scss/variables",
+"_scss/base",
+"_scss/layout"
+;

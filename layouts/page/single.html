@@ -1,0 +1,39 @@
+{{ define "main" }}
+{{- if .Params.index -}}
+<section class="site-index full-no-sidebar">
+    <header class="page-header">
+        <h2 class="page-title" itemprop="name headline">{{ .Title }}</h2>
+    </header>
+    <div class="page-content">
+        <ul>
+            {{- range .Site.Sections -}}
+            <li>
+                <h3><a href="{{.Permalink}}" class="nav-link">{{.Title}}</a> ({{ len .Pages }})</h3>
+                <ul>
+                    {{- range .Pages.ByPublishDate.Reverse -}}
+                    <li>
+                        <time>{{ .Date.Format "02 Jan 2006" }}</time>
+                        <a {{ if eq . $.Page }}class="active" {{end}} href="{{ .RelPermalink }}">{{.Title }}</a>
+                    </li>
+                    {{- end -}}
+                </ul>
+                <br>
+            </li>
+            {{- end -}}
+        </ul>
+    </div>
+    <footer class="page-footer"></footer>
+</section>
+{{- else -}}
+<article class="page h-entry full-no-sidebar {{with .Params.center }}center{{end}}" itemscope="" itemtype="http://schema.org/BlogPosting">
+    <header class="page-header">
+        <h2 class="page-title" itemprop="name headline">{{ .Title }}</h2>
+    </header>
+    <div class="page-content e-content" itemprop="articleBody">
+        {{- .Content -}}
+    </div>
+    <footer class="page-footer">
+    </footer>
+</article>
+{{- end -}}
+{{- end -}}

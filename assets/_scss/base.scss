@@ -1,0 +1,229 @@
+/**
+ * Reset some basic elements
+ */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+hr,
+dl,
+dd,
+ol,
+ul,
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid var(--border-color);
+}
+
+
+/**
+  * Basic styling
+  */
+body {
+  font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
+  color: var(--text-color) !important;
+  background-color: var(--body-bg) !important;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+  -moz-font-feature-settings: "kern" 1;
+  -o-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  margin: 0 auto;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+
+
+/**
+  * Set `margin-bottom` to maintain vertical rhythm
+  */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+ul,
+ol,
+dl,
+figure,
+%vertical-rhythm {
+  margin-bottom: $spacing-unit / 2;
+}
+
+
+/**
+  * `main` element
+  */
+main {
+  display: block;
+  /* Default value of `display` of `main` element is 'inline' in IE 11. */
+  margin: $spacing-unit 0;
+}
+
+
+
+/**
+  * Images
+  */
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  margin: 0 auto;
+}
+
+
+
+/**
+  * Figures
+  */
+figure>img {
+  display: block;
+}
+
+figcaption {
+  font-size: $small-font-size;
+}
+
+
+
+/**
+  * Lists
+  */
+ul,
+ol {
+  margin-left: $spacing-unit;
+}
+
+/**
+  * Headings
+  */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 800;
+
+  &:hover {
+    position: relative;
+  }
+}
+
+/**
+  * Links
+  */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+
+  &:visited {
+    color: var(--link-color);
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+
+/**
+  * Blockquotes
+  */
+blockquote {
+  color: var(--secondary-text-color);
+  border-left: 4px solid var(--border-color) !important;
+  padding-left: $spacing-unit / 2;
+  @include relative-font-size(1.125);
+  letter-spacing: -1px;
+  font-style: italic;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+/**
+  * Code formatting
+  */
+
+pre {
+  padding: 8px 12px;
+  white-space: pre-wrap;
+  font-size: 0.85rem;
+  user-select: text;
+}
+
+
+
+/**
+  * Icons
+  */
+
+.svg-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  fill: var(--secondary-text-color);
+  padding-right: 5px;
+  vertical-align: text-top;
+}
+
+
+/**
+  * Tables
+  */
+table {
+  display: block;
+  margin-bottom: $spacing-unit;
+  overflow-x: auto;
+  text-align: $table-text-align;
+  color: inherit;
+  border-collapse: collapse;
+
+
+  tr {
+    &:nth-child(even) {
+      background-color: var(--widget-bg);
+    }
+  }
+
+  th,
+  td {
+    padding: 4px 10px;
+  }
+
+  th {
+    background-color: var(--header-bg);
+    border: 1px solid var(--border-color);
+    border-bottom-color: var(--border-color);
+  }
+
+  td {
+    border: 1px solid var(--border-color);
+  }
+}
+
+::selection {
+  color: var(--header-bg);
+  background: var(--link-color);
+}

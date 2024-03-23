@@ -1,0 +1,16 @@
+{{- $css := resources.Get "main.scss" | toCSS | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" >
+</head>
+<!-- Main javascript file-->
+{{- $js := slice (resources.Get "js/main.js") (resources.Get "js/hotwired.js") | resources.Concat "bundle.js" | js.Build (dict "minify" true) -}}
+<script type="text/javascript" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"  defer></script>
+
+<!-- Service worker -->
+{{- $params := dict
+    "resources" ((slice "/" "/offline" $css.RelPermalink $js.RelPermalink))
+    "version" (now.Format "200601021504")
+-}}
+{{- $sw := resources.Get "sw.js" | js.Build (dict "minify" true "params" $params) -}}
+<!-- make sure hugo compiles and includes it in the output folder
+    {{ dict "serviceWorker" $sw.Permalink }} -->
+

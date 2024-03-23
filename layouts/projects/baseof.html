@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    {{- partial "head.html" . -}}
+    <body>
+    <div class="wrapper">
+        {{- partial "header.html" . -}}
+        <main id="site-main" class="page-content">
+            {{- block "main" . }}{{- end }}
+        </main>
+        {{- partial "footer.html" . -}}
+    </div>
+</body>
+</html>

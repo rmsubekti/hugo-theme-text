@@ -1,0 +1,33 @@
+{{ $image := newScratch }}
+{{- if strings.HasPrefix .Destination "http" }}
+{{- $image.Set "data" (resources.GetRemote .Destination) -}}
+{{- else -}}
+{{- $image.Set "data" (.Page.Resources.GetMatch .Destination) -}}
+{{- end -}}
+{{- $src:= ($image.Get "data") -}}
+<figure class="img">
+    <a href="{{.Destination}}" title="{{ .Title }}">
+        {{- if eq (printf "%s" $src.MediaType) "image/svg+xml" -}}
+        <img class="svg-image" src="{{ $src.Permalink }}" layout="responsive" loading="lazy" title="{{ .Title }}" alt="{{ .Text }}">
+        {{- else -}}
+        {{- $webp:= $src.Resize (printf "%dx%d webp" $src.Width $src.Height) -}}
+        {{- $w:=(slice 903 885 590 295 148 ) -}}
+        <picture>
+            {{- if (ne (printf "%s" $src.MediaType) "image/webp") -}}
+            <source type="image/webp" srcset="
+            {{- range $w -}}
+            {{- if gt $webp.Width . -}}
+                {{- $i:= ($webp.Resize (printf " %dx webp" . ) ) -}} {{- printf "%s %dw" $i.RelPermalink . -}} {{- if
+                ne 148 . -}}, {{- end -}} {{- end -}} {{- end -}}" sizes="(max-width: 560px) 100vw, 590px">
+            {{- end -}}
+            <source type="{{ $src.MediaType }}" srcset="
+            {{- range $w -}}
+            {{- if gt $src.Width . -}}
+                {{- $i:= ($src.Resize (printf " %dx" . ) ) -}} {{- printf "%s %dw" $i.RelPermalink . -}} {{- if ne 148
+                . -}}, {{- end -}} {{- end -}} {{- end -}}" sizes="(max-width: 590px) 100vw, 590px">
+            <img class="image" src="{{ $src.Permalink }}" layout="responsive" loading="lazy" title="{{ .Title }}" alt="{{ .Text }}">
+        </picture>
+        {{- end -}}
+        <figcaption>{{- .Title | default .Text -}}</figcaption>
+    </a>
+</figure>

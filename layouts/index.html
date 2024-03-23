@@ -1,0 +1,19 @@
+{{ define "main" }}
+
+{{ .Content }}
+<section class="item-list">
+    {{- range .Site.Sections -}}
+    {{ if gt ( len ( where $.Pages "Section" .Section )) 0 }}
+    <div class="list-section">
+        <h2>{{.Section | humanize}}</h2>
+        {{ range first 3 ( where $.Site.RegularPages "Section" .Section ) }}
+        <div class="item">
+            <a class="item-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <time>{{ .Date.Format "02/01/2006" }}</time>
+        </div>
+        {{- end -}}
+    </div>
+    {{- end -}}
+    {{- end -}}
+</section>
+{{ end }}

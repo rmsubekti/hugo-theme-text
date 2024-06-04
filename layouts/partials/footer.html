@@ -2,7 +2,7 @@
 	<div class="container footer-content">
 		<div class="copy">
 			{{- $year:= (now.Format "2006") -}}
-			&copy; 	{{- if and .IsPage (ne (.Date.Format "2006") $year ) -}} {{- .Date.Format "2006-" -}}{{- end -}}{{ $year }} {{ .Site.Title -}}
+			&copy; 	{{- with.Date -}} {{- .Format "2006-" -}}{{- end -}}{{ $year }} {{ .Site.Title -}}
 		</div>
 	</div>
 </footer>

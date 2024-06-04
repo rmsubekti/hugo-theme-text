@@ -34,3 +34,6 @@
 {{- if .NextInSection -}}<link rel="next" href="{{ .NextInSection.Permalink }}">{{- end -}}
 {{- end -}}
 {{- partialCached "head/assets.html" . -}}
+{{- if not (strings.Contains .Permalink .Site.Params.canonical) -}}
+<link rel="canonical" href="{{.Site.Params.canonical}}{{ .RelPermalink }}">
+{{- end -}}

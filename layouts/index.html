@@ -3,7 +3,7 @@
 {{ .Content }}
 <section class="item-list">
     {{- range .Site.Sections -}}
-    {{ if gt ( len ( where $.Pages "Section" .Section )) 0 }}
+    {{ if gt ( len ( where $.Site.RegularPages "Section" .Section )) 0 }}
     <div class="list-section">
         <h2>{{.Section | humanize}}</h2>
         {{ range first 3 ( where $.Site.RegularPages "Section" .Section ) }}

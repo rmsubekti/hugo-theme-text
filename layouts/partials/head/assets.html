@@ -3,8 +3,9 @@
 </head>
 <!-- Main javascript file-->
 {{- $js := slice (resources.Get "js/main.js") (resources.Get "js/hotwired.js") | resources.Concat "bundle.js" | js.Build (dict "minify" true) -}}
+{{ if ne hugo.Environment "development" }}
 <script type="text/javascript" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"  defer></script>
-
+{{ end }}
 <!-- Service worker -->
 {{- $params := dict
     "resources" ((slice "/" "/offline" $css.RelPermalink $js.RelPermalink))
